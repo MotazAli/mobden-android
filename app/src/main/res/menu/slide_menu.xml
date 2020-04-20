@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <group android:id="@+id/master_group_items"
+        android:visible="true">
+        <item android:id="@+id/register_item"
+            android:title="القبول و التسجيل"
+            ></item>
+
+        <item android:id="@+id/prizes_item"
+            android:title="الجوائز"
+            ></item>
+
+        <item android:id="@+id/quality_item"
+            android:title="الجودة الشاملة"
+            ></item>
+
+        <item
+            android:id="@+id/supervisor_item"
+            android:title="الاشراف و التطوير المهني"
+            ></item>
+
+        <item
+            android:id="@+id/relations_item"
+            android:title="العلاقات العامة"
+            ></item>
+
+        <item
+            android:id="@+id/transfer_item"
+            android:title="النقل المدرسي"
+            ></item>
+
+        <item
+            android:id="@+id/contact_item"
+            android:title="اتصل بنا"
+            ></item>
+    </group>
+
+    <group android:id="@+id/stage_group_items"
+        android:visible="false">
+        <item android:id="@+id/stage_supervisor_item"
+            android:title="القيادة المدرسية"
+            ></item>
+
+        <item android:id="@+id/plans_item"
+            android:title="الخطة التشغيلية"
+            ></item>
+
+        <item android:id="@+id/supervision_item"
+            android:title="الارشاد الطلابي"
+            ></item>
+
+        <item
+            android:id="@+id/activity_item"
+            android:title="النشاط الطلابي"
+            ></item>
+
+        <item
+            android:id="@+id/resources_item"
+            android:title="االمصادر و المعامل"
+            ></item>
+
+        <item
+            android:id="@+id/homeworks_item"
+            android:title="الواجبات المدرسية"
+            ></item>
+    </group>
+</menu>

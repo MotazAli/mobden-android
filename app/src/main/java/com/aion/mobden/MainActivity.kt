@@ -88,6 +88,8 @@ class MainActivity : AppCompatActivity() {
                     bottomNavigation.itemIconTintList = masterColorStateList
                     bottomNavigation.itemTextColor = masterColorStateList
                     nvg_slider_view.setBackgroundColor( this.resources.getColor( R.color.masterItemColor))
+                    nvg_slider_view.menu.setGroupVisible(R.id.master_group_items,true)
+                    nvg_slider_view.menu.setGroupVisible(R.id.stage_group_items,false)
                     this.supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.main_frgmant,masterFragment)
@@ -100,6 +102,8 @@ class MainActivity : AppCompatActivity() {
                     bottomNavigation.itemIconTintList = stageColorStateList
                     bottomNavigation.itemTextColor = stageColorStateList
                     nvg_slider_view.setBackgroundColor( this.resources.getColor( R.color.stageItemColor))
+                    nvg_slider_view.menu.setGroupVisible(R.id.master_group_items,false)
+                    nvg_slider_view.menu.setGroupVisible(R.id.stage_group_items,true)
                     this.supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.main_frgmant,primaryFragment)
@@ -112,6 +116,8 @@ class MainActivity : AppCompatActivity() {
                     bottomNavigation.itemIconTintList = stageColorStateList
                     bottomNavigation.itemTextColor = stageColorStateList
                     nvg_slider_view.setBackgroundColor( this.resources.getColor( R.color.stageItemColor))
+                    nvg_slider_view.menu.setGroupVisible(R.id.master_group_items,false)
+                    nvg_slider_view.menu.setGroupVisible(R.id.stage_group_items,true)
                     this.supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.main_frgmant,middleFragment)
@@ -124,6 +130,8 @@ class MainActivity : AppCompatActivity() {
                     bottomNavigation.itemIconTintList = stageColorStateList
                     bottomNavigation.itemTextColor = stageColorStateList
                     nvg_slider_view.setBackgroundColor( this.resources.getColor( R.color.stageItemColor))
+                    nvg_slider_view.menu.setGroupVisible(R.id.master_group_items,false)
+                    nvg_slider_view.menu.setGroupVisible(R.id.stage_group_items,true)
                     this.supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.main_frgmant,highFragment)
