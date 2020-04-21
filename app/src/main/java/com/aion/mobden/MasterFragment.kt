@@ -5,11 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 
 /**
  * A simple [Fragment] subclass.
  */
 class MasterFragment : Fragment() {
+
+    private  lateinit var nvg_slider_view : NavigationView
+    private lateinit  var master_toolbar : Toolbar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,5 +30,18 @@ class MasterFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_master, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        nvg_slider_view = this.activity!!.findViewById(R.id.sidebar_navigation)
+        master_toolbar = this.activity!!.findViewById(R.id.include_master_toolbar)
+        val master_navController : NavController =  Navigation.findNavController(this.activity!!,R.id.master_nav_host_fragment)
+        nvg_slider_view.setupWithNavController(master_navController)
+        NavigationUI.setupActionBarWithNavController(this.activity as AppCompatActivity, master_navController)
+
+    }
+
+
 
 }

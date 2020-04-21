@@ -14,6 +14,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -49,16 +52,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        masterFragment = MasterFragment()
-        primaryFragment = PrimaryFragment()
-        middleFragment = MiddleFragment()
-        highFragment = HighFragment()
-
-        bottomNavigation = this.findViewById(R.id.btm_nav)
-        menu_bar_btn = this.findViewById(R.id.sidebar_toolbar_logo_btn)
-        master_toolbar = this.findViewById(R.id.include_master_toolbar)
-        drawer  = findViewById(R.id.drawer_layout);
-        nvg_slider_view = this.findViewById(R.id.sidebar_navigation)
+        init()
 
 
         this.setSupportActionBar(master_toolbar)
@@ -145,7 +139,8 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setSelectedItemId(R.id.master_menu_item)
 
 
-
+//        val master_navController :NavController = this.findNavController(R.id.master_nav_host_fragment)
+//        nvg_slider_view.setupWithNavController(master_navController)
 
 
 
@@ -200,7 +195,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    override fun onSupportNavigateUp(): Boolean {
+        var navController : NavController? = null
+        if (bottomNavigation.selectedItemId == R.id.master_menu_item){
+            navController = findNavController(R.id.master_nav_host_fragment)
+        }
+        return navController?.navigateUp() ?: super.onSupportNavigateUp()
+    }
 
 
 
@@ -286,6 +287,17 @@ class MainActivity : AppCompatActivity() {
      }
 
 
+    private fun init() {
+        masterFragment = MasterFragment()
+        primaryFragment = PrimaryFragment()
+        middleFragment = MiddleFragment()
+        highFragment = HighFragment()
+        bottomNavigation = this.findViewById(R.id.btm_nav)
+        menu_bar_btn = this.findViewById(R.id.sidebar_toolbar_logo_btn)
+        master_toolbar = this.findViewById(R.id.include_master_toolbar)
+        drawer  = findViewById(R.id.drawer_layout);
+        nvg_slider_view = this.findViewById(R.id.sidebar_navigation)
+    }
 
 
 

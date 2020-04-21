@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_graph"
+    app:startDestination="@id/masterHomeFragment">
+
+    <fragment
+        android:id="@+id/masterHomeFragment"
+        android:name="com.aion.mobden.MasterHomeFragment"
+        android:label="fragment_master_home"
+        tools:layout="@layout/fragment_master_home" />
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.aion.mobden.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
+</navigation>
