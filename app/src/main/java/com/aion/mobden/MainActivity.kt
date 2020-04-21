@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
         this.setSupportActionBar(master_toolbar)
         this.supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val url : String = "https://mobdenapi.azurewebsites.net/MobdenAPI/Word/GetWord"
-        val result : String = HttpTask().execute("Get",url)?.get().toString()
-        println(result )
+//        val url : String = "https://mobdenapi.azurewebsites.net/MobdenAPI/Word/GetWord"
+//        val result : String = HttpTask().execute("Get",url)?.get().toString()
+//        println(result )
 
         menu_bar_btn.setOnClickListener(View.OnClickListener { v ->
             if (drawer.isDrawerOpen(Gravity.RIGHT)) {

@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.aion.mobden.models.Word
+import com.aion.mobden.services.ServiceBuilder
+import com.aion.mobden.services.WordService
 import com.bumptech.glide.Glide
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -20,6 +23,9 @@ import java.net.URL
 import java.util.concurrent.TimeUnit
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * A simple [Fragment] subclass.
@@ -45,12 +51,25 @@ class MasterHomeFragment : Fragment() {
 
         word_txt  = view.findViewById(R.id.word_description_txt)
         word_img = view.findViewById(R.id.word_img)
+        loadWord()
 
-        val target_api : String = hosting + "/MobdenAPI/Word/GetWord"
-        val result : String = HttpTask().execute("Get",target_api)?.get().toString()
+    }
 
 
-        var word = HttpTask().jsonToObject<Word>(result)
+    private fun loadWord(){
+
+        val compositeDisposable = CompositeDisposable()
+        compositeDisposable.add(
+
+            ServiceBuilder.buildService(WordService::class.java).getWord()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe {response -> onWordServiceResponse(response)}
+        )
+    }
+
+    private fun onWordServiceResponse(response: Word?) {
+        val word = response
         if(word?.id!! > 0){
             word_txt.text = word.title
             val image_url = hosting + wordPath + word.image
@@ -68,93 +87,3 @@ class MasterHomeFragment : Fragment() {
 }
 
 
-data class Word(val id :Int,
-           val title:String,
-           val description:String,
-           val image:String) {}
-
-
-class HttpTask : AsyncTask<String?, String?, String?>() {
-
-    private  val CONNECT_TIMEOUT = 15L
-    private  val READ_TIMEOUT = 15L
-    private  val WRITE_TIMEOUT = 15L
-    override fun doInBackground(vararg params: String?): String? {
-
-        return when(params[0]?.toLowerCase()){
-            "get" -> httpGet(params[1]!!,"")
-            "post" -> httpPost(params[1]!!,params[2]!!,"")
-            else -> ""
-        }
-
-    }
-
-
-    private fun httpGet(urlString: String, token: String): String? {
-        return try {
-            val client = OkHttpClient.Builder()
-                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                .build()
-
-            val request = Request.Builder()
-                .url(URL(urlString))
-                //.header("Authorization", token)
-                .get()
-                .build()
-
-            val response = client.newCall(request).execute()
-            //println(response.body?.string())
-            response.body?.string()
-        }
-        catch (e: IOException) {
-            e.printStackTrace()
-            null
-        }
-    }
-
-
-    private fun httpPost(urlString: String, jsonString: String, token: String): String? {
-        return try {
-            val client = OkHttpClient.Builder()
-                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                .build()
-
-            val body = jsonString.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-
-            val request = Request.Builder()
-                .url(URL(urlString))
-                .header("Authorization", token)
-                .post(body)
-                .build()
-
-            val response = client.newCall(request).execute()
-            response.body?.string()
-        }
-        catch (e: IOException) {
-            e.printStackTrace()
-            null
-        }
-    }
-
-
-    fun objectToJson(obj: Any): String {
-        val gson = Gson()
-        return gson.toJson(obj)
-//        val gsonPretty = GsonBuilder().setPrettyPrinting().create()
-//        return gsonPretty.toJson(obj)
-    }
-
-    @Throws(IOException::class)
-    inline fun <reified T:Any> jsonToObject(json: String?): T? {
-        return if (json == null) { null } else {
-            val gson = Gson()
-            gson.fromJson(json, T::class.java)
-        }
-    }
-
-
-}
