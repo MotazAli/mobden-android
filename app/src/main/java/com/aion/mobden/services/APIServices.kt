@@ -18,6 +18,12 @@ interface ArticleService {
 
     @GET("/MobdenAPI/ManagmentArticles/GetArticles")
     fun getTopThreeArticles():Observable<ArrayList<Article>>
+
+
+    @POST("/MobdenAPI/Article/GetArticleByStage")
+    fun getArticlesByStage(@Body article:Article):Observable<ArrayList<Article>>
+
+
 }
 
 

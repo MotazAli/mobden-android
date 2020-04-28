@@ -157,6 +157,8 @@ class MasterHomeFragment : Fragment() {
                 data
             )
             recyclerView.adapter = aboutSchoolAdapter
+            val recyclerViewEmpty : TextView = view.findViewById(R.id.about_school_recycler_view_empty)
+            recyclerViewEmpty.visibility = View.GONE
         })
     }
 
@@ -176,6 +178,8 @@ class MasterHomeFragment : Fragment() {
                         data
                     )
                     recyclerView.adapter = honorBoardAdapter
+                    val recyclerViewEmpty : TextView = view.findViewById(R.id.honor_board_recycler_view_empty)
+                    recyclerViewEmpty.visibility = View.GONE
                 }
 
             }

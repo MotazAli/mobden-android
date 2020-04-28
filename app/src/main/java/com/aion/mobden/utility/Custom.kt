@@ -166,6 +166,13 @@ class  CustomRecyclerAdapter<T>(val context: MainActivity, val items : LiveData<
                         color = ContextCompat.getDrawable(context, R.color.stageCardColor)
                         holder.card_constraintLayout.background = color
                     }
+                    is Article ->{
+                        title = (it[position] as Article).title ?: ""
+                        image = (it[position] as Article).image ?: ""
+                        image_path = newsPath
+                        color = ContextCompat.getDrawable(context, R.color.stageCardColor)
+                        holder.card_constraintLayout.background = color
+                    }
                     else -> ""
                 }
 

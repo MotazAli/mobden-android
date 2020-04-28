@@ -63,35 +63,73 @@ class WordViewModel : ViewModel() {
 
 
 ///////////// Article Model ////////////
-@Parcelize data class Article(val id :Int,
-                              val stage:Int,
-                              val title:String,
-                              val description:String,
-                              val image:String,
-                              val creationDate:String,
-                              val modifiedDate : String) : Parcelable{}
+@Parcelize data class Article(
+    @SerializedName("id")
+    @Expose
+    val id :Int? = null,
+    @SerializedName("stage")
+    @Expose
+    val stage:Int? = null,
+    @SerializedName("title")
+    @Expose
+    val title:String? = null,
+    @SerializedName("description")
+    @Expose
+    val description:String? = null,
+    @SerializedName("image")
+    @Expose
+    val image:String? = null,
+    @SerializedName("creationDate")
+    @Expose
+    val creationDate:String? = null,
+    @SerializedName("modifiedDate")
+    @Expose
+    val modifiedDate : String? = null) : Parcelable{}
 
 class ArticleRepository{
     private val compositeDisposable: CompositeDisposable= CompositeDisposable()
     private var topThreeArticles: MutableLiveData<ArrayList<Article>> = MutableLiveData()
+    private var articlesStage: MutableLiveData<ArrayList<Article>> = MutableLiveData()
+
 
     fun getTopThreeArticles(): LiveData<ArrayList<Article>> {
         loadTopThreeArticles()
         return topThreeArticles
     }
 
+
+
     private fun loadTopThreeArticles(){
         compositeDisposable.add(
             ServiceBuilder.buildService( ArticleService::class.java).getTopThreeArticles()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .filter{ it.isNotEmpty()}
+                .filter{ !it.isNullOrEmpty()}
                 .subscribe {response -> onTopThreeArticlesResponse(response)}
+        )
+    }
+
+    fun getArticlesByStage(article : Article): LiveData<ArrayList<Article>> {
+        loadArticlesByStage(article)
+        return articlesStage
+    }
+
+    private fun loadArticlesByStage(article : Article){
+        compositeDisposable.add(
+            ServiceBuilder.buildService( ArticleService::class.java).getArticlesByStage(article)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .filter{ !it.isNullOrEmpty()}
+                .subscribe {response -> onArticlesByStageResponse(response)}
         )
     }
 
     private fun onTopThreeArticlesResponse(response: ArrayList<Article>?) {
         topThreeArticles.value = response
+    }
+
+    private fun onArticlesByStageResponse(response: ArrayList<Article>?) {
+        articlesStage.value = response
     }
 
     fun dispose() = compositeDisposable.dispose()
@@ -104,6 +142,11 @@ class ArticleViewModel : ViewModel() {
     private val articleRepository: ArticleRepository = ArticleRepository()
 
     fun getTopThreeArticles(): LiveData<ArrayList<Article>> = articleRepository.getTopThreeArticles()
+
+    fun getArticlesByStage(stage : Int = 0): LiveData<ArrayList<Article>> {
+        val article = Article(stage=stage)
+        return articleRepository.getArticlesByStage(article)
+    }
 
     override fun onCleared() {
         super.onCleared()
