@@ -7,4 +7,7 @@
     <color name="masterToolbar">#E4E4E4</color>
     <color name="masterItemColor">#CCA42C44</color>
     <color name="stageItemColor">#DC1F5EA1</color>
+    <color name="masterCardColor">#4DA42C44</color>
+    <color name="stageCardColor">#4D1F5EA1</color>
+    <color name="aboutCardColor">#4D798DA3</color>
 </resources>

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/masterHomeFragment"
-        android:name="com.aion.mobden.MasterHomeFragment"
+        android:name="com.aion.mobden.master.MasterHomeFragment"
         android:label="fragment_master_home"
         tools:layout="@layout/fragment_master_home" />
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.aion.mobden.RegistrationFragment"
+        android:name="com.aion.mobden.master.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
 </navigation>

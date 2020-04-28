@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/master_toolbar"
@@ -8,29 +8,53 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/header2">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/toolbar_action_image"
-        android:layout_width="60dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/logo2" />
+        <ImageView
+            android:id="@+id/toolbar_action_image"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/logo2"
+            app:layout_constraintEnd_toStartOf="@+id/toolbar_header_title"
+            app:layout_constraintHorizontal_bias="0.277"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/toolbar_header_title"
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:fontFamily="serif"
-        android:gravity="center|center_horizontal"
-        android:text="طلائع المبدعين الاهلية للبنين"
-        android:textColor="#F4EFEF"
-        android:textSize="23sp" />
+        <TextView
+            android:id="@+id/toolbar_header_title"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:fontFamily="serif"
+            android:gravity="center|center_horizontal"
+            android:text="طلائع المبدعين الاهلية للبنين"
+            android:textColor="#F4EFEF"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sidebar_toolbar_logo_btn"
+            app:layout_constraintHorizontal_bias="0.792"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <ImageButton
-        android:id="@+id/sidebar_toolbar_logo_btn"
-        android:layout_height="30dp"
-        android:layout_width="30dip"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/ic_action_sidebar" />
+        <ImageButton
+            android:id="@+id/sidebar_toolbar_logo_btn"
+            android:layout_width="30dip"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_action_sidebar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.appcompat.widget.Toolbar>

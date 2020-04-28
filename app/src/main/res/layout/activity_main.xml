@@ -21,7 +21,9 @@
 
         <include
             android:id="@+id/include_master_toolbar"
-            layout="@layout/master_toolbar"></include>
+            layout="@layout/master_toolbar">
+
+        </include>
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

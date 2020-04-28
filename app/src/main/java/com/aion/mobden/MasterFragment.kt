@@ -1,16 +1,14 @@
 package com.aion.mobden
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
@@ -34,9 +32,9 @@ class MasterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nvg_slider_view = this.activity!!.findViewById(R.id.sidebar_navigation)
-        master_toolbar = this.activity!!.findViewById(R.id.include_master_toolbar)
-        val master_navController : NavController =  Navigation.findNavController(this.activity!!,R.id.master_nav_host_fragment)
+        nvg_slider_view = this.requireActivity().findViewById(R.id.sidebar_navigation)
+        master_toolbar = this.requireActivity().findViewById(R.id.include_master_toolbar)
+        val master_navController : NavController =  Navigation.findNavController(this.requireActivity(),R.id.master_nav_host_fragment)
         nvg_slider_view.setupWithNavController(master_navController)
         NavigationUI.setupActionBarWithNavController(this.activity as AppCompatActivity, master_navController)
 

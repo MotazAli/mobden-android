@@ -1,34 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stage_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/header">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/stage_toolbar_action_image"
-        android:layout_width="60dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/logo2" />
+        <ImageView
+            android:id="@+id/stage_toolbar_action_image"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center|center_horizontal"
+            android:src="@drawable/logo2"
+            app:layout_constraintEnd_toStartOf="@+id/stage_toolbar_header_title" />
 
-    <TextView
-        android:id="@+id/stage_toolbar_header_title"
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:fontFamily="serif"
-        android:gravity="center|center_horizontal"
-        android:text="طلائع المبدعين الاهلية للبنين"
-        android:textColor="#F4EFEF"
-        android:textSize="23sp" />
+        <TextView
+            android:id="@+id/stage_toolbar_header_title"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="serif"
+            android:gravity="center|center_horizontal"
+            android:text="طلائع المبدعين الاهلية للبنين"
+            android:textColor="#F4EFEF"
+            android:textSize="23sp"
+            app:layout_constraintEnd_toStartOf="@+id/stage_sidebar_toolbar_logo_btn" />
 
-    <ImageButton
-        android:id="@+id/stage_sidebar_toolbar_logo_btn"
-        android:layout_height="30dp"
-        android:layout_width="30dip"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/ic_action_sidebar" />
+        <ImageButton
+            android:id="@+id/stage_sidebar_toolbar_logo_btn"
+            android:layout_width="30dip"
+            android:layout_height="30dp"
+
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_action_sidebar"
+            android:gravity="center|center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 </androidx.appcompat.widget.Toolbar>

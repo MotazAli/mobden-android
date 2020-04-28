@@ -3,12 +3,10 @@ package com.aion.mobden
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageButton
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
@@ -16,18 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.IOException
-import java.net.URL
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -202,89 +190,6 @@ class MainActivity : AppCompatActivity() {
         }
         return navController?.navigateUp() ?: super.onSupportNavigateUp()
     }
-
-
-
-     class HttpTask : AsyncTask<String?, String?, String?>() {
-
-         private  val CONNECT_TIMEOUT = 15L
-         private  val READ_TIMEOUT = 15L
-         private  val WRITE_TIMEOUT = 15L
-         override fun doInBackground(vararg params: String?): String? {
-
-             return when(params[0]?.toLowerCase()){
-                 "get" -> httpGet(params[1]!!,"")
-                 "post" -> httpPost(params[1]!!,params[2]!!,"")
-                 else -> ""
-             }
-
-         }
-
-
-         private fun httpGet(urlString: String, token: String): String? {
-             return try {
-                 val client = OkHttpClient.Builder()
-                     .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                     .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                     .build()
-
-                 val request = Request.Builder()
-                     .url(URL(urlString))
-                     //.header("Authorization", token)
-                     .get()
-                     .build()
-
-                 val response = client.newCall(request).execute()
-                 //println(response.body?.string())
-                 response.body?.string()
-             }
-             catch (e: IOException) {
-                 e.printStackTrace()
-                 null
-             }
-         }
-
-
-         private fun httpPost(urlString: String, jsonString: String, token: String): String? {
-             return try {
-                 val client = OkHttpClient.Builder()
-                     .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                     .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                     .build()
-
-                 val body = jsonString.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-
-                 val request = Request.Builder()
-                     .url(URL(urlString))
-                     .header("Authorization", token)
-                     .post(body)
-                     .build()
-
-                 val response = client.newCall(request).execute()
-                 response.body?.string()
-             }
-             catch (e: IOException) {
-                 e.printStackTrace()
-                 null
-             }
-         }
-
-         @Throws(JsonProcessingException::class)
-         fun objectToJson(obj: Any): String {
-             return ObjectMapper().writeValueAsString(obj)
-         }
-
-         @Throws(IOException::class)
-         inline fun <reified T:Any> jsonToObject(json: String?): T? {
-             return if (json == null) { null } else {
-                 ObjectMapper().readValue<T>(json, T::class.java)
-             }
-         }
-
-
-     }
 
 
     private fun init() {

@@ -20,7 +20,5 @@ object ServiceBuilder {
         .build()
 
 
-    fun <T>buildService(serviceType: Class<T> ): T {
-        return retrofit.create(serviceType)
-    }
+    fun <T>buildService(serviceType: Class<T> ): T = retrofit.create(serviceType)
 }
